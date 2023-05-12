@@ -72,5 +72,13 @@ int rand_level()
 }
 
 void skiplist_delete(Skiplist* self, int data) {
-	// TODO
+	//first step, find node with data
+	//next step, find previous node! uh oh! we cant do that!, gonna have to traverse whole list, find node with data while retaining previous node, and set previous-> to data_node->next for all next[]
+	SkipNodePtr current = self->header;
+	int i;
+	for (i = self->max_levels - 1; i >= 0; i--) {
+		while (current->next[i] != NULL && current->next[i]->data < data)
+			current = current->next[i];
+	}
+	for (int j = 0; j < )
 }
