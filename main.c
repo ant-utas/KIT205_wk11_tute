@@ -16,15 +16,19 @@ int main()
 	skiplist_print(&list);
 
 	found_7 = skiplist_find(&list, 7);
-	if (found_7){
+	if (found_7) {
 		printf("7 found %d\n", found_7->data);
 	}
 	else printf("7 not found\n");
 
 	found_10 = skiplist_find(&list, 10);
-	if (found_10){
+	if (found_10) {
 		printf("10 found %d\n", found_10->data);
-	} else printf("10 not found\n");
+	}
+	else printf("10 not found\n");
 
+
+	skiplist_delete(&list, 3);//why is 3 still there
+	skiplist_print(&list);
 	return 0;
 }
