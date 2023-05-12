@@ -25,7 +25,7 @@ void skiplist_insert(Skiplist* self, int data)
 	SkipNodePtr new_node = malloc(sizeof * new_node);//allocate memory for skiplistnode
 	new_node->next = malloc(level * sizeof * new_node->next);//allocate memory for array of next pointers in new_node
 	new_node->data = data;//setting data of new_node
-	
+
 	int i;
 
 	for (i = self->max_levels - 1; i >= 0; i--) {//finding correct position of new node, current should be new_node's predecessor
@@ -74,11 +74,19 @@ int rand_level()
 void skiplist_delete(Skiplist* self, int data) {
 	//first step, find node with data
 	//next step, find previous node! uh oh! we cant do that!, gonna have to traverse whole list, find node with data while retaining previous node, and set previous-> to data_node->next for all next[]
+	SkipNodePtr prev;
+	SkipNodePtr next;
 	SkipNodePtr current = self->header;
 	int i;
 	for (i = self->max_levels - 1; i >= 0; i--) {
-		while (current->next[i] != NULL && current->next[i]->data < data)
+		while (current->next[i] != NULL && current->next[i]->data < data) {
 			current = current->next[i];
+			if (current->next[i] != NULL && current->next[i]->data == data) {
+				prev = current;//prev is the node before the node storing the data
+				current = current->next[i];//sets current to be node with matching data
+				prev->next[i] = current->next[i];//previous node now points to the next node
+				current = prev;
+			}
+		}	
 	}
-	for (int j = 0; j < )
 }
